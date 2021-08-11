@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">VkCupFinal</string>
+    <integer name="com_vk_sdk_AppId">7924627</integer>
 </resources>

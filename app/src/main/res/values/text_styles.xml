@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="BaseRegular">
+        <item name="android:fontFamily">@font/vk_regular</item>
+    </style>
+
+    <style name="BaseDemiBold">
+        <item name="android:fontFamily">@font/vk_demibold</item>
+    </style>
+
+    <style name="BaseRegular.Primary">
+        <item name="android:textColor">@color/primary</item>
+    </style>
+
+    <style name="BaseDemiBold.Primary">
+        <item name="android:textColor">@color/primary</item>
+    </style>
+
+    <style name="BaseRegular.Secondary">
+        <item name="android:textColor">@color/secondary</item>
+    </style>
+
+    <style name="BaseDemiBold.Secondary">
+        <item name="android:textColor">@color/secondary</item>
+    </style>
+
+    <style name="BaseRegular.Accent">
+        <item name="android:textColor">@color/accent</item>
+    </style>
+
+    <style name="BaseDemiBold.Accent">
+        <item name="android:textColor">@color/accent</item>
+    </style>
+
+    <style name="BaseDemiBold.Primary.20">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="BaseRegular.Accent.16">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="BaseRegular.Accent.17">
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="BaseDemiBold.Primary.16">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="BaseRegular.Primary.16">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="BaseDemiBold.Primary.21">
+        <item name="android:textSize">21sp</item>
+    </style>
+
+    <style name="BaseRegular.Primary.17">
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="BaseDemiBold.Primary.17">
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="BaseRegular.Primary.13">
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="BaseDemiBold.Secondary.17">
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="BaseRegular.Secondary.11">
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="BaseRegular.Secondary.13">
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="BaseRegular.Secondary.20">
+        <item name="android:textSize">20sp</item>
+    </style>
+</resources>
