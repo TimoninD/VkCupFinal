@@ -33,6 +33,10 @@
         <item name="android:textColor">@color/accent</item>
     </style>
 
+    <style name="BaseRegular.Tertiary">
+        <item name="android:textColor">@color/tertiary</item>
+    </style>
+
     <style name="BaseDemiBold.Primary.20">
         <item name="android:textSize">20sp</item>
     </style>
@@ -83,5 +87,9 @@
 
     <style name="BaseRegular.Secondary.20">
         <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="BaseRegular.Tertiary.12">
+        <item name="android:textSize">12sp</item>
     </style>
 </resources>

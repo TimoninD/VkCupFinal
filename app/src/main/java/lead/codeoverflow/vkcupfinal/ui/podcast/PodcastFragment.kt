@@ -15,7 +15,10 @@ class PodcastFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        webView.loadUrl("https://vk.com/podcasts-147415323_-1000000.rss")
         viewModel.parseRssUrl("https://vk.com/podcasts-147415323_-1000000.rss")
+
+        visualizer.postDelayed({
+            visualizer.init(listOf(12, 50, 32, 11, 220, 44))
+        }, 0)
     }
 }
