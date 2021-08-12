@@ -100,12 +100,12 @@
         android:id="@+id/seekBarPosition"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_10"
-        android:thumb="@drawable/thumb"
-        android:progress="50"
-        android:layout_marginEnd="@dimen/margin_4"
-        android:progressDrawable="@drawable/track"
         android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginEnd="@dimen/margin_4"
+        android:layout_marginBottom="@dimen/margin_10"
+        android:progress="50"
+        android:progressDrawable="@drawable/track_position"
+        android:thumb="@drawable/thumb_position"
         app:layout_constraintBottom_toTopOf="@id/tvCurrentTime"
         app:layout_constraintEnd_toEndOf="@id/viewBackground"
         app:layout_constraintStart_toStartOf="@id/viewBackground" />
@@ -132,4 +132,89 @@
         app:layout_constraintEnd_toEndOf="@id/viewBackground"
         tools:text="-3:44" />
 
+    <TextView
+        android:id="@+id/tvSpeed"
+        style="@style/BaseDemiBold.Primary.13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_40"
+        android:background="@drawable/bg_speed"
+        android:paddingHorizontal="@dimen/margin_12"
+        android:paddingVertical="@dimen/margin_4"
+        app:layout_constraintStart_toStartOf="@id/viewBackground"
+        app:layout_constraintTop_toBottomOf="@id/viewBackground"
+        tools:text="1x" />
+
+    <ImageView
+        android:id="@+id/ivPause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_32"
+        android:background="@drawable/bg_ripple_circle"
+        android:src="@drawable/ic_pause"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewBackground" />
+
+    <ImageView
+        android:id="@+id/ivMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_ripple_circle"
+        android:src="@drawable/ic_more"
+        app:layout_constraintBottom_toBottomOf="@id/ivPause"
+        app:layout_constraintEnd_toEndOf="@id/viewBackground"
+        app:layout_constraintTop_toTopOf="@id/ivPause" />
+
+    <ImageView
+        android:id="@+id/ivSeekLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_ripple_circle"
+        android:src="@drawable/ic_seek_left"
+        app:layout_constraintBottom_toBottomOf="@id/ivPause"
+        app:layout_constraintEnd_toStartOf="@id/ivPause"
+        app:layout_constraintStart_toEndOf="@id/tvSpeed"
+        app:layout_constraintTop_toTopOf="@id/ivPause" />
+
+    <ImageView
+        android:id="@+id/ivSeekRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_ripple_circle"
+        android:src="@drawable/ic_seek_right"
+        app:layout_constraintBottom_toBottomOf="@id/ivPause"
+        app:layout_constraintEnd_toStartOf="@id/ivMore"
+        app:layout_constraintStart_toEndOf="@id/ivPause"
+        app:layout_constraintTop_toTopOf="@id/ivPause" />
+
+    <SeekBar
+        android:id="@+id/seekBarVolume"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_42"
+        android:layout_marginBottom="@dimen/margin_10"
+        android:progress="50"
+        android:progressDrawable="@drawable/track_volume"
+        android:thumb="@drawable/thumb_volume"
+        android:layout_marginHorizontal="@dimen/margin_32"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivPause" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_volume_max"
+        app:layout_constraintBottom_toBottomOf="@id/seekBarVolume"
+        app:layout_constraintStart_toEndOf="@id/seekBarVolume"
+        app:layout_constraintTop_toTopOf="@id/seekBarVolume" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_no_volume"
+        app:layout_constraintBottom_toBottomOf="@id/seekBarVolume"
+        app:layout_constraintEnd_toStartOf="@id/seekBarVolume"
+        app:layout_constraintTop_toTopOf="@id/seekBarVolume" />
 </androidx.constraintlayout.widget.ConstraintLayout>

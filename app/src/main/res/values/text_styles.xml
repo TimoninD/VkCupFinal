@@ -73,6 +73,10 @@
         <item name="android:textSize">13sp</item>
     </style>
 
+    <style name="BaseDemiBold.Primary.13">
+        <item name="android:textSize">13sp</item>
+    </style>
+
     <style name="BaseDemiBold.Secondary.17">
         <item name="android:textSize">17sp</item>
     </style>
