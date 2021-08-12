@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="margin_24">24dp</dimen>
-    <dimen name="margin_12">12dp</dimen>
-    <dimen name="size_105">105dp</dimen>
-    <dimen name="margin_32">32dp</dimen>
-    <dimen name="margin_20">20dp</dimen>
-    <dimen name="margin_4">4dp</dimen>
-    <dimen name="margin_8">8dp</dimen>
-    <dimen name="radius_10">10dp</dimen>
-    <dimen name="margin_28">28dp</dimen>
     <dimen name="margin_60">60dp</dimen>
-    <dimen name="size_72">72dp</dimen>
-    <dimen name="margin_10">10dp</dimen>
-    <dimen name="margin_16">16dp</dimen>
-    <dimen name="margin_40">40dp</dimen>
-    <dimen name="radius_12">12dp</dimen>
-    <dimen name="margin_6">6dp</dimen>
-    <dimen name="margin_42">42dp</dimen>
     <dimen name="margin_48">48dp</dimen>
+    <dimen name="margin_42">42dp</dimen>
+    <dimen name="margin_40">40dp</dimen>
+    <dimen name="margin_30">30dp</dimen>
+    <dimen name="margin_32">32dp</dimen>
+    <dimen name="margin_28">28dp</dimen>
+    <dimen name="margin_24">24dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_16">16dp</dimen>
+    <dimen name="margin_12">12dp</dimen>
+    <dimen name="margin_10">10dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
+    <dimen name="margin_6">6dp</dimen>
+    <dimen name="margin_4">4dp</dimen>
+
+    <dimen name="radius_12">12dp</dimen>
+    <dimen name="radius_10">10dp</dimen>
+    <dimen name="radius_8">8dp</dimen>
+    <dimen name="radius_5">5dp</dimen>
+
+    <dimen name="size_105">105dp</dimen>
+    <dimen name="size_72">72dp</dimen>
+    <dimen name="size_36">36dp</dimen>
+    <dimen name="size_4">4dp</dimen>
 </resources>

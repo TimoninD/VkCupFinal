@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     android:background="@color/black">
 
+    <View
+        android:id="@+id/viewBlur"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/tvAuthor"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/ivBack"
         android:layout_width="wrap_content"
@@ -192,12 +199,12 @@
         android:id="@+id/seekBarVolume"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_32"
         android:layout_marginTop="@dimen/margin_42"
         android:layout_marginBottom="@dimen/margin_10"
         android:progress="50"
         android:progressDrawable="@drawable/track_volume"
         android:thumb="@drawable/thumb_volume"
-        android:layout_marginHorizontal="@dimen/margin_32"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivPause" />

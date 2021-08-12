@@ -8,6 +8,8 @@ import android.util.Log
 import android.widget.FrameLayout
 import lead.codeoverflow.vkcupfinal.R
 import lead.codeoverflow.vkcupfinal.extension.getColorCompat
+import kotlin.experimental.and
+import kotlin.experimental.xor
 import kotlin.math.max
 import kotlin.math.min
 
@@ -30,6 +32,10 @@ class AudioVisualizer @JvmOverloads constructor(
     private val columnWidth = 3f.toPx()
     private val columnSpace = 2f.toPx()
     private val radius = 3f.toPx()
+
+    private val barCount by lazy {
+        width / (columnWidth + columnSpace)
+    }
 
     var audioWavePosition = 0
 
@@ -59,10 +65,23 @@ class AudioVisualizer @JvmOverloads constructor(
         }
     }
 
-    fun init(volumes: List<Int>) {
+    fun init(volumesByte: List<Byte>) {
+        val volumes = getVolumesFromBytes(volumesByte)
         volumeList.addAll(volumes)
         drawSticks()
         invalidate()
+    }
+
+    private fun getVolumesFromBytes(bytes: List<Byte>): List<Int> {
+        val volumesList = mutableListOf<Int>()
+        var i = 0
+        while (i + 1 < bytes.size) {
+            val volume = ((bytes[i + 1] and 0xff.toByte()).toInt()
+                .shl(8)) xor (bytes[i] and 0xff.toByte()).toInt()
+            volumesList.add(volume)
+            i += bytes.size / barCount.toInt()
+        }
+        return volumesList
     }
 
     private fun drawSticks() {
@@ -73,7 +92,7 @@ class AudioVisualizer @JvmOverloads constructor(
             val currentPosition = max(0, volumeList.size - stickCount + i)
             val height = getStickHeight(volumeList[currentPosition])
             val rect = createRectF(left, right, height)
-            paint.alpha = if(i <= audioWavePosition) 255 else 33
+            paint.alpha = if (i <= audioWavePosition) 255 else 33
             canvas?.drawRoundRect(
                 rect,
                 radius,
