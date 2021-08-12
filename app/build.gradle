@@ -95,9 +95,7 @@ dependencies {
     implementation "com.arthenica:mobile-ffmpeg-full:4.4.LTS"
 
     //RSS
-    implementation "com.github.ivanisidrowu.KtRssReader:kotlin:v2.1.2"
-    implementation "com.github.ivanisidrowu.KtRssReader:annotation:v2.1.2"
-    kapt "com.github.ivanisidrowu.KtRssReader:processor:v2.1.2"
+    implementation 'com.github.TimoninD.KtRssReader:kotlin:v2.1.3'
 
     //Time
     implementation "net.danlew:android.joda:2.10.3"
