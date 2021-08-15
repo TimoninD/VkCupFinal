@@ -100,6 +100,9 @@ dependencies {
     //Palette
     implementation 'androidx.palette:palette-ktx:1.0.0'
 
+    //Flexbox
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
+
     //ExoPlayer
     implementation 'com.google.android.exoplayer:exoplayer:2.15.0'
 

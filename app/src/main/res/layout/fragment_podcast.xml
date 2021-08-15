@@ -1,227 +1,271 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black">
 
-    <View
-        android:id="@+id/viewBlur"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@id/tvAuthor"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/ivBack"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_12"
-        android:layout_marginTop="@dimen/margin_24"
-        android:src="@drawable/ic_arrow_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/black">
 
-    <ImageView
-        android:id="@+id/ivAnalytic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_24"
-        android:layout_marginEnd="@dimen/margin_12"
-        android:src="@drawable/ic_analytic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <View
+            android:id="@+id/viewBlur"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/tvAuthor"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/ivIcon"
-        android:layout_width="@dimen/size_105"
-        android:layout_height="@dimen/size_105"
-        android:layout_marginTop="@dimen/margin_32"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_launcher_background" />
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_24"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvTitle"
-        style="@style/BaseDemiBold.Primary.20"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_24"
-        android:layout_marginTop="@dimen/margin_20"
-        android:ellipsize="end"
-        android:gravity="center"
-        android:singleLine="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivIcon"
-        tools:text="Концепция lifelong learning — чеeeeeeee" />
+        <ImageView
+            android:id="@+id/ivAnalytic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24"
+            android:layout_marginEnd="@dimen/margin_12"
+            android:src="@drawable/ic_analytic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvAuthor"
-        style="@style/BaseRegular.Accent.16"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_24"
-        android:layout_marginTop="@dimen/margin_8"
-        android:ellipsize="end"
-        android:gravity="center"
-        android:singleLine="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        tools:text="Команда ВКонтакте" />
+        <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="@dimen/size_105"
+            android:layout_height="@dimen/size_105"
+            android:layout_marginTop="@dimen/margin_32"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_launcher_background" />
 
-    <View
-        android:id="@+id/viewBackground"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="@dimen/margin_12"
-        android:layout_marginTop="@dimen/margin_20"
-        android:background="@drawable/bg_podcast_wave"
-        app:layout_constraintBottom_toBottomOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/tvAuthor"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="141dp" />
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/BaseDemiBold.Primary.20"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_24"
+            android:layout_marginTop="@dimen/margin_20"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivIcon"
+            tools:text="Концепция lifelong learning — чеeeeeeee" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.6" />
+        <TextView
+            android:id="@+id/tvAuthor"
+            style="@style/BaseRegular.Accent.16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_24"
+            android:layout_marginTop="@dimen/margin_8"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            tools:text="Команда ВКонтакте" />
 
-    <lead.codeoverflow.vkcupfinal.ui.view.AudioVisualizer
-        android:id="@+id/visualizer"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/size_72"
-        android:layout_marginHorizontal="@dimen/margin_20"
-        android:layout_marginBottom="@dimen/margin_16"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toTopOf="@id/seekBarPosition"
-        app:layout_constraintEnd_toEndOf="@id/viewBackground"
-        app:layout_constraintStart_toStartOf="@id/viewBackground" />
+        <View
+            android:id="@+id/viewBackground"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_20"
+            android:background="@drawable/bg_podcast_wave"
+            app:layout_constraintBottom_toBottomOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/tvAuthor"
+            app:layout_constraintVertical_bias="1.0"
+            tools:layout_editor_absoluteX="141dp" />
 
-    <SeekBar
-        android:id="@+id/seekBarPosition"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_10"
-        android:layout_marginEnd="@dimen/margin_4"
-        android:layout_marginBottom="@dimen/margin_10"
-        android:progress="50"
-        android:progressDrawable="@drawable/track_position"
-        android:thumb="@drawable/thumb_position"
-        app:layout_constraintBottom_toTopOf="@id/tvCurrentTime"
-        app:layout_constraintEnd_toEndOf="@id/viewBackground"
-        app:layout_constraintStart_toStartOf="@id/viewBackground" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.6" />
 
-    <TextView
-        android:id="@+id/tvCurrentTime"
-        style="@style/BaseRegular.Tertiary.12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_20"
-        android:layout_marginBottom="@dimen/margin_12"
-        app:layout_constraintBottom_toBottomOf="@id/viewBackground"
-        app:layout_constraintStart_toStartOf="@id/viewBackground"
-        tools:text="0:29" />
+        <lead.codeoverflow.vkcupfinal.ui.view.AudioVisualizer
+            android:id="@+id/visualizer"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/size_72"
+            android:layout_marginHorizontal="@dimen/margin_20"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toTopOf="@id/seekBarPosition"
+            app:layout_constraintEnd_toEndOf="@id/viewBackground"
+            app:layout_constraintStart_toStartOf="@id/viewBackground" />
 
-    <TextView
-        android:id="@+id/tvDuration"
-        style="@style/BaseRegular.Tertiary.12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_20"
-        android:layout_marginBottom="@dimen/margin_12"
-        app:layout_constraintBottom_toBottomOf="@id/viewBackground"
-        app:layout_constraintEnd_toEndOf="@id/viewBackground"
-        tools:text="-3:44" />
+        <SeekBar
+            android:id="@+id/seekBarPosition"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_10"
+            android:layout_marginEnd="@dimen/margin_4"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:progress="50"
+            android:progressDrawable="@drawable/track_position"
+            android:thumb="@drawable/thumb_position"
+            app:layout_constraintBottom_toTopOf="@id/tvCurrentTime"
+            app:layout_constraintEnd_toEndOf="@id/viewBackground"
+            app:layout_constraintStart_toStartOf="@id/viewBackground" />
 
-    <TextView
-        android:id="@+id/tvSpeed"
-        style="@style/BaseDemiBold.Primary.13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_40"
-        android:background="@drawable/bg_speed"
-        android:paddingHorizontal="@dimen/margin_12"
-        android:paddingVertical="@dimen/margin_4"
-        app:layout_constraintStart_toStartOf="@id/viewBackground"
-        app:layout_constraintTop_toBottomOf="@id/viewBackground"
-        tools:text="1x" />
+        <TextView
+            android:id="@+id/tvCurrentTime"
+            style="@style/BaseRegular.Tertiary.12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginBottom="@dimen/margin_12"
+            app:layout_constraintBottom_toBottomOf="@id/viewBackground"
+            app:layout_constraintStart_toStartOf="@id/viewBackground"
+            tools:text="0:29" />
 
-    <ImageView
-        android:id="@+id/ivPause"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_32"
-        android:background="@drawable/bg_ripple_circle"
-        android:src="@drawable/ic_pause"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewBackground" />
+        <TextView
+            android:id="@+id/tvDuration"
+            style="@style/BaseRegular.Tertiary.12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_20"
+            android:layout_marginBottom="@dimen/margin_12"
+            app:layout_constraintBottom_toBottomOf="@id/viewBackground"
+            app:layout_constraintEnd_toEndOf="@id/viewBackground"
+            tools:text="-3:44" />
 
-    <ImageView
-        android:id="@+id/ivMore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_ripple_circle"
-        android:src="@drawable/ic_more"
-        app:layout_constraintBottom_toBottomOf="@id/ivPause"
-        app:layout_constraintEnd_toEndOf="@id/viewBackground"
-        app:layout_constraintTop_toTopOf="@id/ivPause" />
+        <TextView
+            android:id="@+id/tvSpeed"
+            style="@style/BaseDemiBold.Primary.13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_40"
+            android:background="@drawable/bg_speed"
+            android:paddingHorizontal="@dimen/margin_12"
+            android:paddingVertical="@dimen/margin_4"
+            app:layout_constraintStart_toStartOf="@id/viewBackground"
+            app:layout_constraintTop_toBottomOf="@id/viewBackground"
+            tools:text="1x" />
 
-    <ImageView
-        android:id="@+id/ivSeekLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_ripple_circle"
-        android:src="@drawable/ic_seek_left"
-        app:layout_constraintBottom_toBottomOf="@id/ivPause"
-        app:layout_constraintEnd_toStartOf="@id/ivPause"
-        app:layout_constraintStart_toEndOf="@id/tvSpeed"
-        app:layout_constraintTop_toTopOf="@id/ivPause" />
+        <ImageView
+            android:id="@+id/ivPause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_32"
+            android:background="@drawable/bg_ripple_circle"
+            android:src="@drawable/ic_pause"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewBackground" />
 
-    <ImageView
-        android:id="@+id/ivSeekRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_ripple_circle"
-        android:src="@drawable/ic_seek_right"
-        app:layout_constraintBottom_toBottomOf="@id/ivPause"
-        app:layout_constraintEnd_toStartOf="@id/ivMore"
-        app:layout_constraintStart_toEndOf="@id/ivPause"
-        app:layout_constraintTop_toTopOf="@id/ivPause" />
+        <ImageView
+            android:id="@+id/ivMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_ripple_circle"
+            android:src="@drawable/ic_more"
+            app:layout_constraintBottom_toBottomOf="@id/ivPause"
+            app:layout_constraintEnd_toEndOf="@id/viewBackground"
+            app:layout_constraintTop_toTopOf="@id/ivPause" />
 
-    <SeekBar
-        android:id="@+id/seekBarVolume"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_32"
-        android:layout_marginTop="@dimen/margin_42"
-        android:layout_marginBottom="@dimen/margin_10"
-        android:progress="50"
-        android:progressDrawable="@drawable/track_volume"
-        android:thumb="@drawable/thumb_volume"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivPause" />
+        <ImageView
+            android:id="@+id/ivSeekLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_ripple_circle"
+            android:src="@drawable/ic_seek_left"
+            app:layout_constraintBottom_toBottomOf="@id/ivPause"
+            app:layout_constraintEnd_toStartOf="@id/ivPause"
+            app:layout_constraintStart_toEndOf="@id/tvSpeed"
+            app:layout_constraintTop_toTopOf="@id/ivPause" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_volume_max"
-        app:layout_constraintBottom_toBottomOf="@id/seekBarVolume"
-        app:layout_constraintStart_toEndOf="@id/seekBarVolume"
-        app:layout_constraintTop_toTopOf="@id/seekBarVolume" />
+        <ImageView
+            android:id="@+id/ivSeekRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_ripple_circle"
+            android:src="@drawable/ic_seek_right"
+            app:layout_constraintBottom_toBottomOf="@id/ivPause"
+            app:layout_constraintEnd_toStartOf="@id/ivMore"
+            app:layout_constraintStart_toEndOf="@id/ivPause"
+            app:layout_constraintTop_toTopOf="@id/ivPause" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_no_volume"
-        app:layout_constraintBottom_toBottomOf="@id/seekBarVolume"
-        app:layout_constraintEnd_toStartOf="@id/seekBarVolume"
-        app:layout_constraintTop_toTopOf="@id/seekBarVolume" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <SeekBar
+            android:id="@+id/seekBarVolume"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_32"
+            android:layout_marginTop="@dimen/margin_42"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:progress="50"
+            android:progressDrawable="@drawable/track_volume"
+            android:thumb="@drawable/thumb_volume"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivPause" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_volume_max"
+            app:layout_constraintBottom_toBottomOf="@id/seekBarVolume"
+            app:layout_constraintStart_toEndOf="@id/seekBarVolume"
+            app:layout_constraintTop_toTopOf="@id/seekBarVolume" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_no_volume"
+            app:layout_constraintBottom_toBottomOf="@id/seekBarVolume"
+            app:layout_constraintEnd_toStartOf="@id/seekBarVolume"
+            app:layout_constraintTop_toTopOf="@id/seekBarVolume" />
+
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/seekBarVolume"
+            android:layout_marginTop="180dp"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/reactionContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:paddingBottom="@dimen/margin_30">
+
+            <TextView
+                android:id="@+id/tvReactionTitle"
+                style="@style/BaseDemiBold.Primary.21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/podcast_reaction"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvReaction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_30"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/margin_20"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/tvReactionTitle"
+                tools:listitem="@layout/view_reaction" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

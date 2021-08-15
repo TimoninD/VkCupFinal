@@ -25,4 +25,8 @@
     <dimen name="size_72">72dp</dimen>
     <dimen name="size_36">36dp</dimen>
     <dimen name="size_4">4dp</dimen>
+    <dimen name="size_8">8dp</dimen>
+    <dimen name="size_40">40dp</dimen>
+    <dimen name="size_32">32dp</dimen>
+    <dimen name="margin_220">220dp</dimen>
 </resources>

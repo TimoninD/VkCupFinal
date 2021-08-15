@@ -3,4 +3,13 @@
     <string name="podcast_reaction">Реакции</string>
     <integer name="com_vk_sdk_AppId">7924627</integer>
     <string name="speed_foramt">%dx</string>
+
+    <string name="funny">Смешно!</string>
+    <string name="like">Отлично</string>
+    <string name="dislike">Так себе</string>
+    <string name="angry">Злюсь!</string>
+    <string name="sad">Грустно</string>
+    <string name="confused">Радуюсь</string>
+    <string name="money">Опять реклама</string>
+    <string name="shit">Какой-то бред</string>
 </resources>
