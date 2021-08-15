@@ -6,6 +6,6 @@ import org.koin.dsl.module
 
 object ViewModelModule {
     val module = module {
-        viewModel { (url: String) -> PodcastViewModel(url) }
+        viewModel { (rssUrl: String, jsonUrl: String) -> PodcastViewModel(rssUrl, jsonUrl) }
     }
 }

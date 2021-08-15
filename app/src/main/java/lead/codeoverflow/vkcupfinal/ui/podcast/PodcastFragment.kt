@@ -6,7 +6,9 @@ import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -38,8 +40,10 @@ import org.koin.core.parameter.parametersOf
 class PodcastFragment : BaseFragment() {
     override val layoutResId: Int = R.layout.fragment_podcast
 
+    private val navArgs: PodcastFragmentArgs by navArgs()
+
     private val viewModel by viewModel<PodcastViewModel>() {
-        parametersOf("https://vk.com/podcasts-147415323_-1000000.rss")
+        parametersOf(navArgs.rssUrl, navArgs.jsonUrl)
     }
 
     private val reactionAdapter by lazy {
@@ -118,14 +122,17 @@ class PodcastFragment : BaseFragment() {
                     val dominantColor = resource?.getDominantColor() ?: R.color.black
                     val topGradientDrawable = GradientDrawable(
                         GradientDrawable.Orientation.TOP_BOTTOM,
-                        intArrayOf(dominantColor, R.color.black)
+                        intArrayOf(
+                            dominantColor,
+                            ContextCompat.getColor(requireContext(), R.color.black)
+                        )
                     )
                     topGradientDrawable.gradientRadius = 1000f
                     topGradientDrawable.innerRadius = 1000
 
                     bottomSheetDrawable = GradientDrawable(
                         GradientDrawable.Orientation.BOTTOM_TOP,
-                        intArrayOf(dominantColor, R.color.black)
+                        intArrayOf(dominantColor, ContextCompat.getColor(requireContext(), R.color.black))
                     )
                     viewBlur.background = topGradientDrawable
                     reactionContainer.background = bottomSheetDrawable

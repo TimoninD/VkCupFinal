@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/choosePodcastFragment"
-        android:name="lead.codeoverflow.vkcupfinal.ui.choosepodcast.ChoosePodcastFragment" >
+        android:name="lead.codeoverflow.vkcupfinal.ui.choosepodcast.ChoosePodcastFragment">
         <action
             android:id="@+id/action_choosePodcastFragment_to_podcastFragment"
             app:destination="@id/podcastFragment" />
@@ -15,6 +15,14 @@
     <fragment
         android:id="@+id/podcastFragment"
         android:name="lead.codeoverflow.vkcupfinal.ui.podcast.PodcastFragment">
+        <argument
+            android:name="rssUrl"
+            app:argType="string" />
+
+        <argument
+            android:name="jsonUrl"
+            app:argType="string" />
+
         <action
             android:id="@+id/action_podcastFragment_to_analyticFragment"
             app:destination="@id/analyticFragment" />

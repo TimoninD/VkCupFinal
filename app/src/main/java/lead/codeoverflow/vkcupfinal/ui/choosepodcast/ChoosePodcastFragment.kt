@@ -12,8 +12,15 @@ class ChoosePodcastFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btnChoose.setOnClickListener {
-            findNavController().navigate(ChoosePodcastFragmentDirections.actionChoosePodcastFragmentToPodcastFragment())
+        btnSave.setOnClickListener {
+            if (etRssLink.text.isNotBlank()) {
+                findNavController().navigate(
+                    ChoosePodcastFragmentDirections.actionChoosePodcastFragmentToPodcastFragment(
+                        etRssLink.text.toString(),
+                        etJsonLink.text.toString()
+                    )
+                )
+            }
         }
     }
 

@@ -7,7 +7,7 @@ import tw.ktrssreader.kotlin.model.channel.ITunesChannelData
 import tw.ktrssreader.kotlin.parser.ITunesParser
 import java.net.URL
 
-class PodcastViewModel(private val url: String) : BaseViewModel() {
+class PodcastViewModel(private val rssUrl: String, private val jsonUrl: String) : BaseViewModel() {
 
     val podcastItem = MutableLiveData<ITunesChannelData>()
 
@@ -20,7 +20,7 @@ class PodcastViewModel(private val url: String) : BaseViewModel() {
     private fun parseRssUrl() {
         coroutineScope.launch {
             try {
-                val podcastUrl = URL(url)
+                val podcastUrl = URL(rssUrl)
                 val result = podcastUrl.readText()
                 val channel = ITunesParser().parse(result)
                 podcastItem.postValue(channel)

@@ -12,4 +12,9 @@
     <string name="confused">Радуюсь</string>
     <string name="money">Опять реклама</string>
     <string name="shit">Какой-то бред</string>
+    <string name="choose_title">Укажите RSS и JSON ссылки</string>
+    <string name="choose_rss_hint">Введите RSS ссылку</string>
+    <string name="choose_json_hint">Введите JSON ссылку</string>
+    <string name="save">Сохранить</string>
+    <string name="default_rss">https://vk.com/podcasts-147415323_-1000000.rss</string>
 </resources>

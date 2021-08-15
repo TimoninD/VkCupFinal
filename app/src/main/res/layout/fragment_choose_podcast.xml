@@ -1,12 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/black">
 
+    <TextView
+        style="@style/BaseDemiBold.Primary.21"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_32"
+        android:gravity="center"
+        android:text="@string/choose_title"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etRssLink"
+        style="@style/BaseRegular.Primary.16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/default_rss"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:layout_marginBottom="@dimen/margin_8"
+        android:hint="@string/choose_rss_hint"
+        android:paddingBottom="@dimen/margin_20"
+        android:textColorHint="@color/primary_20"
+        app:layout_constraintBottom_toTopOf="@id/etJsonLink"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <EditText
+        android:id="@+id/etJsonLink"
+        style="@style/BaseRegular.Primary.16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_8"
+        android:hint="@string/choose_json_hint"
+        android:paddingBottom="@dimen/margin_20"
+        android:textColorHint="@color/primary_20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etRssLink"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
-        android:id="@+id/btnChoose"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:id="@+id/btnSave"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/etJsonLink"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/margin_32"
+        android:text="@string/save"
+        app:layout_constraintStart_toStartOf="@id/etJsonLink" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
