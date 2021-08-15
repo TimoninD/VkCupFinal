@@ -42,16 +42,6 @@ class PodcastFragment : BaseFragment() {
         parametersOf("https://vk.com/podcasts-147415323_-1000000.rss")
     }
 
-    private val reactionFlexboxManager by lazy {
-        SafeFlexboxLayoutManager(requireContext(), FlexDirection.ROW)
-    }
-
-    private val reactionHorizontalManager by lazy {
-        LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-    }
-
-    private var lastBottomState = STATE_COLLAPSED
-
     private val reactionAdapter by lazy {
         ListDelegationAdapter(
             reactionAdapterDelegate {

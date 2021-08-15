@@ -163,7 +163,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_32"
             android:background="@drawable/bg_ripple_circle"
-            android:src="@drawable/ic_pause"
+            android:src="@drawable/ic_play"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/viewBackground" />
@@ -237,35 +237,23 @@
             app:layout_constraintTop_toBottomOf="@id/seekBarVolume"
             android:layout_marginTop="180dp"/>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <FrameLayout
             android:id="@+id/reactionContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:paddingBottom="@dimen/margin_30">
+            android:layout_height="130dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-            <TextView
-                android:id="@+id/tvReactionTitle"
-                style="@style/BaseDemiBold.Primary.21"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/podcast_reaction"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvReaction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_30"
                 android:clipToPadding="false"
                 android:orientation="horizontal"
                 android:paddingHorizontal="@dimen/margin_20"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/tvReactionTitle"
                 tools:listitem="@layout/view_reaction" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
