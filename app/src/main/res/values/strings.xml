@@ -17,4 +17,6 @@
     <string name="choose_json_hint">Введите JSON ссылку</string>
     <string name="save">Сохранить</string>
     <string name="default_rss">https://vk.com/podcasts-147415323_-1000000.rss</string>
+    <string name="default_json">https://www.dropbox.com/s/b5uuko4vyiles97/podcast.json</string>
+    <string name="default_time">0:00</string>
 </resources>

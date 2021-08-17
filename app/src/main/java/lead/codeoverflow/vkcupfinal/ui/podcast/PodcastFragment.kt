@@ -80,16 +80,22 @@ class PodcastFragment : BaseFragment() {
 
     private fun initObserver() {
         viewModel.podcastItem.observe(viewLifecycleOwner, {
-            loadPodcastIcon(it.image?.url)
+            loadPodcastIcon(it.image)
 
             tvTitle.text = it.title
-            tvAuthor.text = it.author
-            audioController.addPlaylist(it.items?.map { it.enclosure?.url ?: "" } ?: listOf())
+            tvAuthor.text = it.owner
+            audioController.addPlaylist(it.playlist.map { it.url })
+            tvCurrentTime.text = getString(R.string.default_time)
+            tvDuration.text = it.playlist[audioController.getCurrentPosition()].duration
             audioController.play()
         })
 
         viewModel.playSpeed.observe(viewLifecycleOwner, {
             tvSpeed.text = getString(R.string.speed_foramt, it)
+        })
+
+        viewModel.playerProgress.observe(viewLifecycleOwner, {
+            tvCurrentTime.text = it.toString()
         })
     }
 
@@ -132,7 +138,10 @@ class PodcastFragment : BaseFragment() {
 
                     bottomSheetDrawable = GradientDrawable(
                         GradientDrawable.Orientation.BOTTOM_TOP,
-                        intArrayOf(dominantColor, ContextCompat.getColor(requireContext(), R.color.black))
+                        intArrayOf(
+                            dominantColor,
+                            ContextCompat.getColor(requireContext(), R.color.black)
+                        )
                     )
                     viewBlur.background = topGradientDrawable
                     reactionContainer.background = bottomSheetDrawable
@@ -141,5 +150,10 @@ class PodcastFragment : BaseFragment() {
 
             })
             .into(ivIcon)
+    }
+
+    override fun onDestroy() {
+        audioController.close()
+        super.onDestroy()
     }
 }

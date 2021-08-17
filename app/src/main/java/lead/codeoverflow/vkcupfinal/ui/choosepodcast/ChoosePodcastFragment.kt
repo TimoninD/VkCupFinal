@@ -12,6 +12,7 @@ class ChoosePodcastFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        webview.loadUrl(getString(R.string.default_rss))
         btnSave.setOnClickListener {
             if (etRssLink.text.isNotBlank()) {
                 findNavController().navigate(

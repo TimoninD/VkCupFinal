@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/black">
 
+
     <TextView
         style="@style/BaseDemiBold.Primary.21"
         android:layout_width="match_parent"
@@ -37,6 +38,7 @@
         android:layout_marginHorizontal="@dimen/margin_16"
         android:layout_marginTop="@dimen/margin_8"
         android:hint="@string/choose_json_hint"
+        android:text="@string/default_json"
         android:paddingBottom="@dimen/margin_20"
         android:textColorHint="@color/primary_20"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -53,5 +55,8 @@
         android:text="@string/save"
         app:layout_constraintStart_toStartOf="@id/etJsonLink" />
 
-
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

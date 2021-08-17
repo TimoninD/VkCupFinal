@@ -2,10 +2,7 @@ package lead.codeoverflow.vkcupfinal.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.*
 import org.koin.core.KoinComponent
 
 open class BaseViewModel : ViewModel(), KoinComponent {
@@ -17,4 +14,9 @@ open class BaseViewModel : ViewModel(), KoinComponent {
 
     private val coroutineContext = Dispatchers.IO + exHandler + job
     protected val coroutineScope = CoroutineScope(coroutineContext)
+
+    override fun onCleared() {
+        coroutineScope.coroutineContext.cancel()
+        super.onCleared()
+    }
 }
