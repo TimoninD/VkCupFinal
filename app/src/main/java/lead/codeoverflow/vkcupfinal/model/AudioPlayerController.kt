@@ -7,15 +7,31 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.trackselection.TrackSelector
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 
-class AudioPlayerController(private val application: Application) {
+interface AudioPlayerController {
+    fun init()
+    fun addPlaylist(playlist: List<String>)
+    fun getCurrentPosition(): Int
+    fun play(seekToMs: Int? = null)
+    fun changeSpeed(speed: Int)
+    fun pause()
+    fun changeVolume(volumePercent: Int)
+    fun playNextEpisode()
+    fun playPrevEpisode()
+    fun close()
+    fun observeProgress(): Flow<Long>
+    fun seekTo(duration: Long)
+}
+
+class AudioPlayerControllerImpl(private val application: Application) : AudioPlayerController {
     private var simpleExoPlayer: SimpleExoPlayer? = null
 
     private var playerListener: PlayerListener? = null
 
-    fun init() {
+    override fun init() {
         val renderersFactory = DefaultRenderersFactory(application)
         renderersFactory.setExtensionRendererMode(DefaultRenderersFactory.EXTENSION_RENDERER_MODE_OFF)
         val trackSelector: TrackSelector = DefaultTrackSelector(application)
@@ -25,7 +41,7 @@ class AudioPlayerController(private val application: Application) {
             .build()
     }
 
-    fun addPlaylist(playlist: List<String>) {
+    override fun addPlaylist(playlist: List<String>) {
         val mediaItemList = playlist.map {
             MediaItem.fromUri(it)
         }
@@ -33,9 +49,9 @@ class AudioPlayerController(private val application: Application) {
         simpleExoPlayer?.prepare()
     }
 
-    fun getCurrentPosition() = simpleExoPlayer?.currentPeriodIndex ?: 0
+    override fun getCurrentPosition() = simpleExoPlayer?.currentPeriodIndex ?: 0
 
-    fun play(seekToMs: Int? = null) {
+    override fun play(seekToMs: Int?) {
         val position =
             if (seekToMs == null && simpleExoPlayer?.playbackState == Player.STATE_ENDED) {
                 0
@@ -49,29 +65,50 @@ class AudioPlayerController(private val application: Application) {
         simpleExoPlayer?.playWhenReady = true
     }
 
-    fun changeSpeed(speed: Int) {
+    override fun changeSpeed(speed: Int) {
         val pitch = simpleExoPlayer?.playbackParameters?.pitch
         pitch?.let {
             simpleExoPlayer?.playbackParameters = PlaybackParameters(speed.toFloat(), it)
         }
     }
 
-    fun pause() {
+    override fun pause() {
         playerListener?.onEvent(PlayerEvent.PAUSE)
         simpleExoPlayer?.playWhenReady = false
     }
 
-    fun close() {
+    override fun changeVolume(volumePercent: Int) {
+        simpleExoPlayer?.volume = volumePercent.toFloat() / 100
+    }
+
+    override fun playNextEpisode() {
+        if (getCurrentPosition() + 1 < simpleExoPlayer?.mediaItemCount ?: 0) {
+            simpleExoPlayer?.seekToNext()
+        }
+    }
+
+    override fun playPrevEpisode() {
+        if (getCurrentPosition() > 0) {
+            simpleExoPlayer?.seekToPrevious()
+        }
+    }
+
+    override fun close() {
         playerListener?.onEvent(PlayerEvent.STOP)
         simpleExoPlayer?.release()
     }
 
-    fun observeProgress() = flow {
+    override fun observeProgress() = flow {
         while (true) {
             delay(500)
-            val currentTime = withContext(Dispatchers.Main) { simpleExoPlayer?.currentPosition ?: 0L }
+            val currentTime =
+                withContext(Dispatchers.Main) { simpleExoPlayer?.currentPosition ?: 0L }
             emit(currentTime)
         }
+    }
+
+    override fun seekTo(duration: Long) {
+        simpleExoPlayer?.seekTo(duration)
     }
 
 }

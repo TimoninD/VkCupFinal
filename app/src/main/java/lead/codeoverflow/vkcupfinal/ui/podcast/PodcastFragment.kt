@@ -4,14 +4,12 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.widget.SeekBar
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -19,19 +17,14 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
-import com.google.android.flexbox.FlexDirection
-import com.google.android.flexbox.FlexWrap
-import com.google.android.flexbox.FlexboxLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetBehavior.*
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import kotlinx.android.synthetic.main.fragment_podcast.*
 import kotlinx.android.synthetic.main.fragment_podcast.tvTitle
 import lead.codeoverflow.vkcupfinal.R
 import lead.codeoverflow.vkcupfinal.entity.Reaction
-import lead.codeoverflow.vkcupfinal.model.AudioPlayerController
+import lead.codeoverflow.vkcupfinal.extension.addProgressListener
+import lead.codeoverflow.vkcupfinal.model.AudioPlayerControllerImpl
 import lead.codeoverflow.vkcupfinal.ui.base.BaseFragment
-import lead.codeoverflow.vkcupfinal.utils.SafeFlexboxLayoutManager
 import lead.codeoverflow.vkcupfinal.utils.extractTime
 import lead.codeoverflow.vkcupfinal.utils.getDominantColor
 import lead.codeoverflow.vkcupfinal.utils.parseDuration
@@ -62,8 +55,6 @@ class PodcastFragment : BaseFragment() {
 
     private var bottomSheetDrawable: Drawable? = null
 
-    private val audioController by inject<AudioPlayerController>()
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rvReaction.adapter = reactionAdapter
@@ -77,12 +68,30 @@ class PodcastFragment : BaseFragment() {
         }
 
         tvSpeed.setOnClickListener {
-            audioController.changeSpeed(2)
+            viewModel.changeSpeed()
         }
 
         ivBack.setOnClickListener {
             findNavController().popBackStack()
         }
+
+        ivNext.setOnClickListener {
+            viewModel.playNextEpisode()
+        }
+
+        ivPrev.setOnClickListener {
+            viewModel.playPrevEpisode()
+        }
+
+        seekBarPosition.addProgressListener({}, {
+            viewModel.seekTo(it, tvDuration.text.toString().parseDuration())
+        })
+
+        seekBarVolume.addProgressListener({
+            viewModel.changeVolume(it)
+        }, {
+
+        })
     }
 
     private fun initObserver() {
@@ -91,9 +100,12 @@ class PodcastFragment : BaseFragment() {
 
             tvTitle.text = it.title
             tvAuthor.text = it.owner
-            audioController.addPlaylist(it.playlist.map { it.url })
+            viewModel.addPlaylist(it.playlist.map { it.url })
             tvCurrentTime.text = getString(R.string.default_time)
-            tvDuration.text = it.playlist[audioController.getCurrentPosition()].duration
+        })
+
+        viewModel.currentPlayItem.observe(viewLifecycleOwner, {
+            tvDuration.text = it.duration
         })
 
         viewModel.playSpeed.observe(viewLifecycleOwner, {
@@ -103,10 +115,10 @@ class PodcastFragment : BaseFragment() {
         viewModel.isPlay.observe(viewLifecycleOwner, {
             if (it) {
                 ivPause.setImageResource(R.drawable.ic_pause)
-                audioController.play()
+                viewModel.play()
             } else {
                 ivPause.setImageResource(R.drawable.ic_play)
-                audioController.pause()
+                viewModel.pause()
             }
         })
 
@@ -176,7 +188,7 @@ class PodcastFragment : BaseFragment() {
     }
 
     override fun onDestroy() {
-        audioController.close()
+        viewModel.close()
         super.onDestroy()
     }
 }

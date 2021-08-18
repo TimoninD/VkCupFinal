@@ -30,7 +30,7 @@
                 android:id="@+id/ivBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_12"
+                android:paddingHorizontal="@dimen/margin_12"
                 android:layout_marginTop="@dimen/margin_24"
                 android:src="@drawable/ic_arrow_back"
                 app:layout_constraintStart_toStartOf="parent"
@@ -123,7 +123,7 @@
                 android:layout_marginStart="@dimen/margin_10"
                 android:layout_marginEnd="@dimen/margin_4"
                 android:layout_marginBottom="@dimen/margin_10"
-                android:progress="50"
+                android:progress="0"
                 android:progressDrawable="@drawable/track_position"
                 android:thumb="@drawable/thumb_position"
                 app:layout_constraintBottom_toTopOf="@id/tvCurrentTime"
@@ -188,7 +188,7 @@
                 app:layout_constraintTop_toTopOf="@id/ivPause" />
 
             <ImageView
-                android:id="@+id/ivSeekLeft"
+                android:id="@+id/ivPrev"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_ripple_circle"
@@ -199,7 +199,7 @@
                 app:layout_constraintTop_toTopOf="@id/ivPause" />
 
             <ImageView
-                android:id="@+id/ivSeekRight"
+                android:id="@+id/ivNext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_ripple_circle"
@@ -216,7 +216,7 @@
                 android:layout_marginHorizontal="@dimen/margin_32"
                 android:layout_marginTop="@dimen/margin_42"
                 android:layout_marginBottom="@dimen/margin_10"
-                android:progress="50"
+                android:progress="100"
                 android:progressDrawable="@drawable/track_volume"
                 android:thumb="@drawable/thumb_volume"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -227,6 +227,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_volume_max"
+
                 app:layout_constraintBottom_toBottomOf="@id/seekBarVolume"
                 app:layout_constraintStart_toEndOf="@id/seekBarVolume"
                 app:layout_constraintTop_toTopOf="@id/seekBarVolume" />
