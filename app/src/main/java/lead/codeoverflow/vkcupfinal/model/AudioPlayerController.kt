@@ -24,6 +24,7 @@ interface AudioPlayerController {
     fun close()
     fun observeProgress(): Flow<Long>
     fun seekTo(duration: Long)
+    fun getDuration(): Long
 }
 
 class AudioPlayerControllerImpl(private val application: Application) : AudioPlayerController {
@@ -110,5 +111,7 @@ class AudioPlayerControllerImpl(private val application: Application) : AudioPla
     override fun seekTo(duration: Long) {
         simpleExoPlayer?.seekTo(duration)
     }
+
+    override fun getDuration() = simpleExoPlayer?.duration ?: -1L
 
 }

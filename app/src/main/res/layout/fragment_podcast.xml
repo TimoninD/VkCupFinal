@@ -8,11 +8,11 @@
 
     <ScrollView
         android:id="@+id/content"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:visibility="visible"
-        android:background="@color/black">
+        android:background="@color/black"
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -30,8 +30,8 @@
                 android:id="@+id/ivBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="@dimen/margin_12"
                 android:layout_marginTop="@dimen/margin_24"
+                android:paddingHorizontal="@dimen/margin_12"
                 android:src="@drawable/ic_arrow_back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -93,9 +93,8 @@
                 android:layout_marginHorizontal="@dimen/margin_12"
                 android:layout_marginTop="@dimen/margin_20"
                 android:background="@drawable/bg_podcast_wave"
-                app:layout_constraintBottom_toBottomOf="@id/guideline"
+                app:layout_constraintBottom_toBottomOf="@id/tvDuration"
                 app:layout_constraintTop_toBottomOf="@id/tvAuthor"
-                app:layout_constraintVertical_bias="1.0"
                 tools:layout_editor_absoluteX="141dp" />
 
             <androidx.constraintlayout.widget.Guideline
@@ -105,30 +104,33 @@
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.6" />
 
-            <lead.codeoverflow.vkcupfinal.ui.view.AudioVisualizer
-                android:id="@+id/visualizer"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvPopularReaction"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/size_72"
-                android:layout_marginHorizontal="@dimen/margin_20"
-                android:layout_marginBottom="@dimen/margin_16"
-                android:background="@android:color/transparent"
-                app:layout_constraintBottom_toTopOf="@id/seekBarPosition"
-                app:layout_constraintEnd_toEndOf="@id/viewBackground"
-                app:layout_constraintStart_toStartOf="@id/viewBackground" />
+                android:layout_height="130dp"
+                android:layout_marginTop="@dimen/margin_21"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/margin_20"
+                android:paddingTop="@dimen/margin_24"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="@id/seekBarPosition"
+                app:layout_constraintStart_toStartOf="@id/seekBarPosition"
+                app:layout_constraintTop_toBottomOf="@id/tvAuthor"
+                tools:listitem="@layout/view_popular_reaction" />
 
             <SeekBar
                 android:id="@+id/seekBarPosition"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_12"
                 android:layout_marginEnd="@dimen/margin_4"
-                android:layout_marginBottom="@dimen/margin_10"
                 android:progress="0"
                 android:progressDrawable="@drawable/track_position"
                 android:thumb="@drawable/thumb_position"
-                app:layout_constraintBottom_toTopOf="@id/tvCurrentTime"
                 app:layout_constraintEnd_toEndOf="@id/viewBackground"
-                app:layout_constraintStart_toStartOf="@id/viewBackground" />
+                app:layout_constraintStart_toStartOf="@id/viewBackground"
+                app:layout_constraintTop_toBottomOf="@id/rvPopularReaction" />
 
             <TextView
                 android:id="@+id/tvCurrentTime"
@@ -136,9 +138,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_20"
-                android:layout_marginBottom="@dimen/margin_12"
-                app:layout_constraintBottom_toBottomOf="@id/viewBackground"
+                android:layout_marginTop="@dimen/margin_10"
                 app:layout_constraintStart_toStartOf="@id/viewBackground"
+                app:layout_constraintTop_toBottomOf="@id/seekBarPosition"
                 tools:text="0:29" />
 
             <TextView
@@ -146,10 +148,11 @@
                 style="@style/BaseRegular.Tertiary.12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
                 android:layout_marginEnd="@dimen/margin_20"
-                android:layout_marginBottom="@dimen/margin_12"
-                app:layout_constraintBottom_toBottomOf="@id/viewBackground"
+                android:paddingBottom="@dimen/margin_12"
                 app:layout_constraintEnd_toEndOf="@id/viewBackground"
+                app:layout_constraintTop_toBottomOf="@id/seekBarPosition"
                 tools:text="-3:44" />
 
             <TextView
@@ -171,8 +174,8 @@
                 android:layout_height="@dimen/size_36"
                 android:layout_marginTop="@dimen/margin_32"
                 android:background="@drawable/bg_ripple_circle"
-                android:src="@drawable/ic_play"
                 android:scaleType="center"
+                android:src="@drawable/ic_play"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/viewBackground" />
@@ -267,10 +270,11 @@
             </FrameLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
     <ProgressBar
         android:id="@+id/progress"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:visibility="gone" />
 </FrameLayout>

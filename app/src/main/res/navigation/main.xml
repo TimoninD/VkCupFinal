@@ -20,7 +20,7 @@
             app:argType="string" />
 
         <argument
-            android:name="jsonUrl"
+            android:name="jsonStr"
             app:argType="string" />
 
         <action

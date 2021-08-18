@@ -22,9 +22,11 @@ import kotlinx.android.synthetic.main.fragment_podcast.*
 import kotlinx.android.synthetic.main.fragment_podcast.tvTitle
 import lead.codeoverflow.vkcupfinal.R
 import lead.codeoverflow.vkcupfinal.entity.Reaction
+import lead.codeoverflow.vkcupfinal.entity.core.ReactionData
 import lead.codeoverflow.vkcupfinal.extension.addProgressListener
 import lead.codeoverflow.vkcupfinal.model.AudioPlayerControllerImpl
 import lead.codeoverflow.vkcupfinal.ui.base.BaseFragment
+import lead.codeoverflow.vkcupfinal.utils.MILLS
 import lead.codeoverflow.vkcupfinal.utils.extractTime
 import lead.codeoverflow.vkcupfinal.utils.getDominantColor
 import lead.codeoverflow.vkcupfinal.utils.parseDuration
@@ -39,7 +41,7 @@ class PodcastFragment : BaseFragment() {
     private val navArgs: PodcastFragmentArgs by navArgs()
 
     private val viewModel by viewModel<PodcastViewModel>() {
-        parametersOf(navArgs.rssUrl, navArgs.jsonUrl)
+        parametersOf(navArgs.rssUrl, navArgs.jsonStr)
     }
 
     private val reactionAdapter by lazy {
@@ -47,10 +49,13 @@ class PodcastFragment : BaseFragment() {
             reactionAdapterDelegate {
 
             }
-        ).apply {
-            items = Reaction.values().toList()
-            notifyDataSetChanged()
-        }
+        )
+    }
+
+    private val popularReactionAdapter by lazy {
+        ListDelegationAdapter(
+            reactionPopularAdapterDelegate()
+        )
     }
 
     private var bottomSheetDrawable: Drawable? = null
@@ -58,6 +63,7 @@ class PodcastFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rvReaction.adapter = reactionAdapter
+        rvPopularReaction.adapter = popularReactionAdapter
         initObserver()
         initListeners()
     }
@@ -84,7 +90,7 @@ class PodcastFragment : BaseFragment() {
         }
 
         seekBarPosition.addProgressListener({}, {
-            viewModel.seekTo(it, tvDuration.text.toString().parseDuration())
+            viewModel.seekTo(it)
         })
 
         seekBarVolume.addProgressListener({
@@ -104,8 +110,8 @@ class PodcastFragment : BaseFragment() {
             tvCurrentTime.text = getString(R.string.default_time)
         })
 
-        viewModel.currentPlayItem.observe(viewLifecycleOwner, {
-            tvDuration.text = it.duration
+        viewModel.currentPlayItem.observe(viewLifecycleOwner, { playData ->
+            tvDuration.text = playData.duration
         })
 
         viewModel.playSpeed.observe(viewLifecycleOwner, {
@@ -130,9 +136,16 @@ class PodcastFragment : BaseFragment() {
         viewModel.playerProgress.observe(viewLifecycleOwner, {
             tvCurrentTime.text = it.extractTime()
             seekBarPosition.progress =
-                (it / tvDuration.text.toString().parseDuration() * 100).toInt()
+                (it / viewModel.getDuration() * 100).toInt()
+
+        })
+
+        viewModel.availableReactions.observe(viewLifecycleOwner, {
+            reactionAdapter.items = it
+            reactionAdapter.notifyDataSetChanged()
         })
     }
+
 
     private fun loadPodcastIcon(url: String?) {
         Glide.with(requireContext())

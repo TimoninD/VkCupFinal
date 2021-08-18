@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         if (prefs.accessToken.isEmpty()) {
-            VK.login(this, arrayListOf(VKScope.WALL, VKScope.FRIENDS))
+            //VK.login(this, arrayListOf(VKScope.WALL, VKScope.FRIENDS))
         }
     }
 

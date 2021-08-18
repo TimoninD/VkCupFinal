@@ -1,15 +1,19 @@
 package lead.codeoverflow.vkcupfinal.viewmodel.podcast
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.google.gson.Gson
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import lead.codeoverflow.vkcupfinal.entity.core.PlayData
-import lead.codeoverflow.vkcupfinal.entity.core.PodcastData
-import lead.codeoverflow.vkcupfinal.entity.core.toPodcastData
+import kotlinx.coroutines.withContext
+import lead.codeoverflow.vkcupfinal.entity.core.*
 import lead.codeoverflow.vkcupfinal.model.AudioPlayerController
 import lead.codeoverflow.vkcupfinal.model.AudioPlayerControllerImpl
 import lead.codeoverflow.vkcupfinal.model.local.PodcastDao
+import lead.codeoverflow.vkcupfinal.utils.MILLS
 import lead.codeoverflow.vkcupfinal.viewmodel.BaseViewModel
+import org.json.JSONObject
 import tw.ktrssreader.kotlin.parser.ITunesParser
 import java.net.URL
 
@@ -17,7 +21,7 @@ private const val NORMAL_SPEED = 1
 
 class PodcastViewModel(
     private val rssUrl: String,
-    private val jsonUrl: String,
+    private val jsonStr: String,
     private val audioPlayerController: AudioPlayerController,
     private val podcastDao: PodcastDao
 ) : BaseViewModel(), AudioPlayerController by audioPlayerController {
@@ -25,6 +29,8 @@ class PodcastViewModel(
     val podcastItem = MutableLiveData<PodcastData>()
 
     val currentPlayItem = MutableLiveData<PlayData>()
+
+    val availableReactions = MutableLiveData<List<ReactionData>>()
 
     val playSpeed = MutableLiveData(1)
 
@@ -34,10 +40,19 @@ class PodcastViewModel(
 
     val progress = MutableLiveData<Boolean>()
 
+    val jsonResult = MutableLiveData<JsonResult>()
+
     init {
         audioPlayerController.init()
+        parseInfoFromJson()
         parseRssUrl()
         observePlayerProgress()
+    }
+
+    private fun parseInfoFromJson() {
+        val gson = Gson()
+        val result = gson.fromJson(jsonStr, JsonResult::class.java)
+        jsonResult.value = result
     }
 
     private fun parseRssUrl() {
@@ -59,15 +74,6 @@ class PodcastViewModel(
                 e.printStackTrace()
             } finally {
                 progress.postValue(false)
-            }
-        }
-
-        coroutineScope.launch {
-            try {
-                val podcastJsonUrl = URL(jsonUrl)
-                val result = podcastJsonUrl.readText()
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
         }
     }
@@ -109,16 +115,45 @@ class PodcastViewModel(
         changeSpeed(playSpeed.value ?: NORMAL_SPEED)
     }
 
-    fun seekTo(progress: Int, duration: Long) {
-        val seekPosition = duration / 100 * progress
+    fun seekTo(progress: Int) {
+        val seekPosition = getDuration() / 100 * progress
         seekTo(seekPosition)
+    }
+
+    fun getCurrentReactions(){
+        jsonResult.value?.let {
+            val episode = it.episodes?.firstOrNull()
+            //it.episodes?.find { it.guid == currentPlayItem.value?.guid }
+
+        }
     }
 
     private fun observePlayerProgress() {
         coroutineScope.launch {
             try {
-                observeProgress().collect {
-                    playerProgress.postValue(it)
+                observeProgress().collect { progress ->
+                    playerProgress.postValue(progress)
+                    withContext(Dispatchers.Default) {
+                        val jsonInfo = jsonResult.value
+                        jsonInfo?.let {
+                            val episode = it.episodes?.firstOrNull()
+                            //it.episodes?.find { it.guid == currentPlayItem.value?.guid }
+                            val timedReaction = episode?.timedReactions?.find {
+                                val to = it.to.toLong() * MILLS
+                                val from = it.from.toLong() * MILLS
+                                progress in from..to
+                            }
+                            val availableReactionList =
+                                timedReaction?.availableReactions ?: listOf()
+                            val reactions = mutableListOf<ReactionData>()
+                            it.reactions?.forEach {
+                                if (availableReactionList.contains(it.id)) {
+                                    reactions.add(it)
+                                }
+                            }
+                            availableReactions.postValue(reactions)
+                        }
+                    }
                 }
             } catch (t: Throwable) {
                 t.printStackTrace()

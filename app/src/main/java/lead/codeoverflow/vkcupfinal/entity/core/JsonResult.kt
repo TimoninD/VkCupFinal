@@ -6,7 +6,7 @@ import lead.codeoverflow.vkcupfinal.entity.Sex
 import lead.codeoverflow.vkcupfinal.model.local.TimedReactionConverter
 
 data class JsonResult(
-    val reactions: List<ReactionData>,
+    val reactions: List<ReactionData>?,
     val episodes: List<Episode>?
 )
 
@@ -23,6 +23,7 @@ data class Episode(
     @Ignore
     @SerializedName("default_reactions") var defaultReactions: List<Int> = listOf(),
     @TypeConverters(TimedReactionConverter::class)
+    @SerializedName("timed_reactions")
     @ColumnInfo(name = "timed_reactions") var timedReactions: List<TimedReaction> = listOf(),
     var statistics: List<Statistic> = listOf()
 )

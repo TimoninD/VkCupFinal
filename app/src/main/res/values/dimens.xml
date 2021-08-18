@@ -29,4 +29,7 @@
     <dimen name="size_40">40dp</dimen>
     <dimen name="size_32">32dp</dimen>
     <dimen name="margin_220">220dp</dimen>
+    <dimen name="size_12">12dp</dimen>
+    <dimen name="margin_2">2dp</dimen>
+    <dimen name="margin_21">21dp</dimen>
 </resources>
