@@ -32,6 +32,7 @@ class PodcastViewModel(
     val progress = MutableLiveData<Boolean>()
 
     init {
+        audioPlayerController.init()
         parseRssUrl()
         observePlayerProgress()
     }

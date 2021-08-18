@@ -11,61 +11,65 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 
 class AudioPlayerController(private val application: Application) {
-    private val simpleExoPlayer by lazy {
+    private var simpleExoPlayer: SimpleExoPlayer? = null
+
+    private var playerListener: PlayerListener? = null
+
+    fun init() {
         val renderersFactory = DefaultRenderersFactory(application)
         renderersFactory.setExtensionRendererMode(DefaultRenderersFactory.EXTENSION_RENDERER_MODE_OFF)
         val trackSelector: TrackSelector = DefaultTrackSelector(application)
 
-        SimpleExoPlayer.Builder(application, renderersFactory)
+        simpleExoPlayer = SimpleExoPlayer.Builder(application, renderersFactory)
             .setTrackSelector(trackSelector)
             .build()
     }
-
-    private var playerListener: PlayerListener? = null
 
     fun addPlaylist(playlist: List<String>) {
         val mediaItemList = playlist.map {
             MediaItem.fromUri(it)
         }
-        simpleExoPlayer.addMediaItems(mediaItemList)
-        simpleExoPlayer.prepare()
+        simpleExoPlayer?.addMediaItems(mediaItemList)
+        simpleExoPlayer?.prepare()
     }
 
-    fun getCurrentPosition() = simpleExoPlayer.currentPeriodIndex
+    fun getCurrentPosition() = simpleExoPlayer?.currentPeriodIndex ?: 0
 
     fun play(seekToMs: Int? = null) {
         val position =
-            if (seekToMs == null && simpleExoPlayer.playbackState == Player.STATE_ENDED) {
+            if (seekToMs == null && simpleExoPlayer?.playbackState == Player.STATE_ENDED) {
                 0
             } else {
                 seekToMs
             }
 
         position?.let {
-            simpleExoPlayer.seekTo(it.toLong())
+            simpleExoPlayer?.seekTo(it.toLong())
         }
-        simpleExoPlayer.playWhenReady = true
+        simpleExoPlayer?.playWhenReady = true
     }
 
     fun changeSpeed(speed: Int) {
-        val pitch = simpleExoPlayer.playbackParameters.pitch
-        simpleExoPlayer.playbackParameters = PlaybackParameters(speed.toFloat(), pitch)
+        val pitch = simpleExoPlayer?.playbackParameters?.pitch
+        pitch?.let {
+            simpleExoPlayer?.playbackParameters = PlaybackParameters(speed.toFloat(), it)
+        }
     }
 
     fun pause() {
         playerListener?.onEvent(PlayerEvent.PAUSE)
-        simpleExoPlayer.playWhenReady = false
+        simpleExoPlayer?.playWhenReady = false
     }
 
     fun close() {
         playerListener?.onEvent(PlayerEvent.STOP)
-        simpleExoPlayer.release()
+        simpleExoPlayer?.release()
     }
 
     fun observeProgress() = flow {
         while (true) {
             delay(500)
-            val currentTime = withContext(Dispatchers.Main){simpleExoPlayer.currentPosition}
+            val currentTime = withContext(Dispatchers.Main) { simpleExoPlayer?.currentPosition ?: 0L }
             emit(currentTime)
         }
     }
