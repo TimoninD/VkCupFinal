@@ -1,26 +1,31 @@
 package lead.codeoverflow.vkcupfinal.entity.core
 
-import lead.codeoverflow.vkcupfinal.utils.parseDuration
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import tw.ktrssreader.kotlin.model.channel.ITunesChannelData
 import tw.ktrssreader.kotlin.model.item.ITunesItemData
 
+@Entity
 data class PodcastData(
+    @PrimaryKey val link: String,
     val title: String,
     val owner: String,
     val image: String,
     val playlist: List<PlayData>
 )
 
+@Entity
 data class PlayData(
-    val guid: String,
+    @PrimaryKey val guid: String,
     val url: String,
     val duration: String
 )
 
-fun ITunesChannelData.toPodcastData() = PodcastData(
+fun ITunesChannelData.toPodcastData(link:String) = PodcastData(
     title = this.title.orEmpty(),
     owner = this.author.orEmpty(),
     image = this.image?.url.orEmpty(),
+    link = link,
     playlist = this.items?.map { it.toPlayData() } ?: listOf()
 )
 

@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,7 +32,9 @@ import lead.codeoverflow.vkcupfinal.entity.Reaction
 import lead.codeoverflow.vkcupfinal.model.AudioPlayerController
 import lead.codeoverflow.vkcupfinal.ui.base.BaseFragment
 import lead.codeoverflow.vkcupfinal.utils.SafeFlexboxLayoutManager
+import lead.codeoverflow.vkcupfinal.utils.extractTime
 import lead.codeoverflow.vkcupfinal.utils.getDominantColor
+import lead.codeoverflow.vkcupfinal.utils.parseDuration
 import lead.codeoverflow.vkcupfinal.viewmodel.podcast.PodcastViewModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -70,11 +73,15 @@ class PodcastFragment : BaseFragment() {
 
     private fun initListeners() {
         ivPause.setOnClickListener {
-            audioController.pause()
+            viewModel.changePlayState()
         }
 
         tvSpeed.setOnClickListener {
             audioController.changeSpeed(2)
+        }
+
+        ivBack.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 
@@ -87,15 +94,31 @@ class PodcastFragment : BaseFragment() {
             audioController.addPlaylist(it.playlist.map { it.url })
             tvCurrentTime.text = getString(R.string.default_time)
             tvDuration.text = it.playlist[audioController.getCurrentPosition()].duration
-            audioController.play()
         })
 
         viewModel.playSpeed.observe(viewLifecycleOwner, {
             tvSpeed.text = getString(R.string.speed_foramt, it)
         })
 
+        viewModel.isPlay.observe(viewLifecycleOwner, {
+            if (it) {
+                ivPause.setImageResource(R.drawable.ic_pause)
+                audioController.play()
+            } else {
+                ivPause.setImageResource(R.drawable.ic_play)
+                audioController.pause()
+            }
+        })
+
+        viewModel.progress.observe(viewLifecycleOwner, {
+            content.isVisible = !it
+            progress.isVisible = it
+        })
+
         viewModel.playerProgress.observe(viewLifecycleOwner, {
-            tvCurrentTime.text = it.toString()
+            tvCurrentTime.text = it.extractTime()
+            seekBarPosition.progress =
+                (it / tvDuration.text.toString().parseDuration() * 100).toInt()
         })
     }
 

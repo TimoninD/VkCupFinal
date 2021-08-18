@@ -2,6 +2,7 @@ package lead.codeoverflow.vkcupfinal
 
 import android.app.Application
 import lead.codeoverflow.vkcupfinal.di.AppModule
+import lead.codeoverflow.vkcupfinal.di.DatabaseModule
 import lead.codeoverflow.vkcupfinal.di.ViewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -14,7 +15,7 @@ class App : Application() {
             androidContext(this@App)
             modules(
                 listOf(
-                    AppModule.module, ViewModelModule.module
+                    AppModule.module, ViewModelModule.module, DatabaseModule.module
                 )
             )
         }

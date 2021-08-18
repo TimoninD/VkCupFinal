@@ -64,9 +64,8 @@ class AudioPlayerController(private val application: Application) {
 
     fun observeProgress() = flow {
         while (true) {
-            delay(1000)
+            delay(500)
             val currentTime = withContext(Dispatchers.Main){simpleExoPlayer.currentPosition}
-            Log.e("Time",currentTime.toString())
             emit(currentTime)
         }
     }
