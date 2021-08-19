@@ -45,11 +45,9 @@ class PodcastFragment : BaseFragment() {
     }
 
     private val reactionAdapter by lazy {
-        ListDelegationAdapter(
-            reactionAdapterDelegate {
+        ReactionAdapter {
 
-            }
-        )
+        }
     }
 
     private val popularReactionAdapter by lazy {
@@ -112,6 +110,12 @@ class PodcastFragment : BaseFragment() {
 
         viewModel.currentPlayItem.observe(viewLifecycleOwner, { playData ->
             tvDuration.text = playData.duration
+            viewModel.getCurrentPopularReactions()
+        })
+
+        viewModel.currentPopularReactions.observe(viewLifecycleOwner, {
+            popularReactionAdapter.items = it
+            popularReactionAdapter.notifyDataSetChanged()
         })
 
         viewModel.playSpeed.observe(viewLifecycleOwner, {
@@ -142,7 +146,6 @@ class PodcastFragment : BaseFragment() {
 
         viewModel.availableReactions.observe(viewLifecycleOwner, {
             reactionAdapter.items = it
-            reactionAdapter.notifyDataSetChanged()
         })
     }
 

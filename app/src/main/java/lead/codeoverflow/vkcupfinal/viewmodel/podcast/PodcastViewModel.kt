@@ -1,19 +1,18 @@
 package lead.codeoverflow.vkcupfinal.viewmodel.podcast
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import lead.codeoverflow.vkcupfinal.entity.Reaction
 import lead.codeoverflow.vkcupfinal.entity.core.*
 import lead.codeoverflow.vkcupfinal.model.AudioPlayerController
-import lead.codeoverflow.vkcupfinal.model.AudioPlayerControllerImpl
 import lead.codeoverflow.vkcupfinal.model.local.PodcastDao
 import lead.codeoverflow.vkcupfinal.utils.MILLS
+import lead.codeoverflow.vkcupfinal.utils.extractTime
 import lead.codeoverflow.vkcupfinal.viewmodel.BaseViewModel
-import org.json.JSONObject
 import tw.ktrssreader.kotlin.parser.ITunesParser
 import java.net.URL
 
@@ -31,6 +30,8 @@ class PodcastViewModel(
     val currentPlayItem = MutableLiveData<PlayData>()
 
     val availableReactions = MutableLiveData<List<ReactionData>>()
+
+    val currentPopularReactions = MutableLiveData<List<Reaction>>()
 
     val playSpeed = MutableLiveData(1)
 
@@ -120,10 +121,15 @@ class PodcastViewModel(
         seekTo(seekPosition)
     }
 
-    fun getCurrentReactions(){
-        jsonResult.value?.let {
-            val episode = it.episodes?.firstOrNull()
-            //it.episodes?.find { it.guid == currentPlayItem.value?.guid }
+    fun getCurrentPopularReactions() {
+        jsonResult.value?.let { result ->
+            val episode = result.episodes?.firstOrNull()
+            currentPopularReactions.value = episode?.statistics?.map { statistic ->
+                Reaction(
+                    result.reactions?.find { it.id == statistic.reactionId }?.emoji ?: "",
+                    statistic.time.extractTime()
+                )
+            } ?: listOf()
 
         }
     }
