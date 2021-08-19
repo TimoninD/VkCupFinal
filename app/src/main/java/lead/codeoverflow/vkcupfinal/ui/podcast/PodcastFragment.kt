@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import androidx.core.content.ContextCompat
@@ -139,8 +140,8 @@ class PodcastFragment : BaseFragment() {
 
         viewModel.playerProgress.observe(viewLifecycleOwner, {
             tvCurrentTime.text = it.extractTime()
-            seekBarPosition.progress =
-                (it / viewModel.getDuration() * 100).toInt()
+            val progress = (it.toFloat() / viewModel.getDuration().toFloat() * 100).toInt()
+            seekBarPosition.progress = progress
 
         })
 
