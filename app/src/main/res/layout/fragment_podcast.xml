@@ -104,19 +104,18 @@
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.6" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvPopularReaction"
-                android:layout_width="0dp"
+            <lead.codeoverflow.vkcupfinal.ui.view.PopularReactionsView
+                android:id="@+id/viewPopularReaction"
+                android:layout_width="match_parent"
                 android:layout_height="130dp"
-                android:layout_marginTop="@dimen/margin_21"
-                android:orientation="horizontal"
-                android:paddingHorizontal="@dimen/margin_20"
+                android:layout_marginHorizontal="@dimen/margin_36"
                 android:paddingTop="@dimen/margin_24"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="@id/seekBarPosition"
                 app:layout_constraintStart_toStartOf="@id/seekBarPosition"
                 app:layout_constraintTop_toBottomOf="@id/tvAuthor"
-                tools:listitem="@layout/view_popular_reaction" />
+                android:layout_marginTop="@dimen/margin_24"
+                />
+
 
             <SeekBar
                 android:id="@+id/seekBarPosition"
@@ -130,7 +129,7 @@
                 android:thumb="@drawable/thumb_position"
                 app:layout_constraintEnd_toEndOf="@id/viewBackground"
                 app:layout_constraintStart_toStartOf="@id/viewBackground"
-                app:layout_constraintTop_toBottomOf="@id/rvPopularReaction" />
+                app:layout_constraintTop_toBottomOf="@id/viewPopularReaction" />
 
             <TextView
                 android:id="@+id/tvCurrentTime"

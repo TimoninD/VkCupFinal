@@ -8,11 +8,15 @@
 
     <color name="black">#19191A</color>
     <color name="white">#FFFFFF</color>
+    <color name="white_10">#15FFFFFF</color>
+    <color name="white_0">#00FFFFFF</color>
+
 
     <color name="accent">#71AAEB</color>
     <color name="accent_20">#3371AAEB</color>
     <color name="primary">#E1E3E6</color>
     <color name="primary_20">#33E1E3E6</color>
+    <color name="blue_32">#ADD3FF</color>
     <color name="secondary">#76787A</color>
     <color name="tint">#232324</color>
     <color name="tertiary">#5D5F61</color>

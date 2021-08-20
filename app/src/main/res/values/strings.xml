@@ -21,4 +21,7 @@
     <string name="default_json">https://api.facebook.com/method/fql.query?format=json</string>
     <string name="default_time">0:00</string>
     <string name="choose_podcast_json_title">Выберите файл json</string>
+    <string name="analytic_title">Статистика</string>
+    <string name="analytic_reactions">Реакции</string>
+    <string name="analytic_reaction_type">Виды реакций</string>
 </resources>

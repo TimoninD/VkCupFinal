@@ -19,13 +19,17 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
+import kotlinx.android.synthetic.main.fragment_analytic.*
 import kotlinx.android.synthetic.main.fragment_podcast.*
+import kotlinx.android.synthetic.main.fragment_podcast.ivBack
+import kotlinx.android.synthetic.main.fragment_podcast.progress
 import kotlinx.android.synthetic.main.fragment_podcast.tvTitle
 import lead.codeoverflow.vkcupfinal.R
 import lead.codeoverflow.vkcupfinal.entity.Reaction
 import lead.codeoverflow.vkcupfinal.entity.core.ReactionData
 import lead.codeoverflow.vkcupfinal.extension.addProgressListener
 import lead.codeoverflow.vkcupfinal.model.AudioPlayerControllerImpl
+import lead.codeoverflow.vkcupfinal.model.Prefs
 import lead.codeoverflow.vkcupfinal.ui.base.BaseFragment
 import lead.codeoverflow.vkcupfinal.utils.MILLS
 import lead.codeoverflow.vkcupfinal.utils.extractTime
@@ -62,7 +66,8 @@ class PodcastFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rvReaction.adapter = reactionAdapter
-        rvPopularReaction.adapter = popularReactionAdapter
+        //rvPopularReaction.adapter = popularReactionAdapter
+
         initObserver()
         initListeners()
     }
@@ -70,6 +75,16 @@ class PodcastFragment : BaseFragment() {
     private fun initListeners() {
         ivPause.setOnClickListener {
             viewModel.changePlayState()
+        }
+
+        ivAnalytic.setOnClickListener {
+            viewModel.currentPlayItem.value?.let {
+                findNavController().navigate(
+                    PodcastFragmentDirections.actionPodcastFragmentToAnalyticFragment(
+                        it.guid, viewModel.getDuration()
+                    )
+                )
+            }
         }
 
         tvSpeed.setOnClickListener {
@@ -107,20 +122,24 @@ class PodcastFragment : BaseFragment() {
             tvAuthor.text = it.owner
             viewModel.addPlaylist(it.playlist.map { it.url })
             tvCurrentTime.text = getString(R.string.default_time)
+
+            ivAnalytic.isVisible = viewModel.jsonResult.value != null
         })
 
         viewModel.currentPlayItem.observe(viewLifecycleOwner, { playData ->
             tvDuration.text = playData.duration
-            viewModel.getCurrentPopularReactions()
-        })
-
-        viewModel.currentPopularReactions.observe(viewLifecycleOwner, {
-            popularReactionAdapter.items = it
-            popularReactionAdapter.notifyDataSetChanged()
+            viewModel.getCurrentPopularReactions(playData.duration.parseDuration())
         })
 
         viewModel.playSpeed.observe(viewLifecycleOwner, {
             tvSpeed.text = getString(R.string.speed_foramt, it)
+        })
+
+        viewModel.currentPopularReactions.observe(viewLifecycleOwner, {
+            viewPopularReaction.postDelayed({
+                viewPopularReaction.init(viewModel.currentPlayItem.value?.duration.toString().parseDuration(), it)
+            }, 0)
+
         })
 
         viewModel.isPlay.observe(viewLifecycleOwner, {
@@ -202,6 +221,11 @@ class PodcastFragment : BaseFragment() {
 
             })
             .into(ivIcon)
+    }
+
+    override fun onStop() {
+        viewModel.isPlay.value = false
+        super.onStop()
     }
 
     override fun onDestroy() {

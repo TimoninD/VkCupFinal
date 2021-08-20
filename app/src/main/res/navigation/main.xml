@@ -30,5 +30,15 @@
 
     <fragment
         android:id="@+id/analyticFragment"
-        android:name="lead.codeoverflow.vkcupfinal.ui.analytic.AnalyticFragment" />
+        android:name="lead.codeoverflow.vkcupfinal.ui.analytic.AnalyticFragment">
+        <argument
+            android:name="episodeId"
+            app:argType="string"
+            app:nullable="false" />
+
+        <argument
+            android:name="duration"
+            app:argType="long"
+            app:nullable="false" />
+    </fragment>
 </navigation>

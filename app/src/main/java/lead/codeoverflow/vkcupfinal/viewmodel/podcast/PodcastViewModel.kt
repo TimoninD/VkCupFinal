@@ -6,23 +6,25 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import lead.codeoverflow.vkcupfinal.entity.Reaction
+import lead.codeoverflow.vkcupfinal.entity.ReactionPopular
 import lead.codeoverflow.vkcupfinal.entity.core.*
 import lead.codeoverflow.vkcupfinal.model.AudioPlayerController
+import lead.codeoverflow.vkcupfinal.model.local.InfoDao
 import lead.codeoverflow.vkcupfinal.model.local.PodcastDao
 import lead.codeoverflow.vkcupfinal.utils.MILLS
-import lead.codeoverflow.vkcupfinal.utils.extractTime
 import lead.codeoverflow.vkcupfinal.viewmodel.BaseViewModel
 import tw.ktrssreader.kotlin.parser.ITunesParser
 import java.net.URL
 
 private const val NORMAL_SPEED = 1
+private const val DURATION_STEP_KOEF = 6
 
 class PodcastViewModel(
     private val rssUrl: String,
     private val jsonStr: String,
     private val audioPlayerController: AudioPlayerController,
-    private val podcastDao: PodcastDao
+    private val podcastDao: PodcastDao,
+    private val infoDao: InfoDao
 ) : BaseViewModel(), AudioPlayerController by audioPlayerController {
 
     val podcastItem = MutableLiveData<PodcastData>()
@@ -31,7 +33,7 @@ class PodcastViewModel(
 
     val availableReactions = MutableLiveData<List<ReactionData>>()
 
-    val currentPopularReactions = MutableLiveData<List<Reaction>>()
+    val currentPopularReactions = MutableLiveData<List<ReactionPopular>>()
 
     val playSpeed = MutableLiveData(1)
 
@@ -54,6 +56,9 @@ class PodcastViewModel(
         val gson = Gson()
         val result = gson.fromJson(jsonStr, JsonResult::class.java)
         jsonResult.value = result
+        coroutineScope.launch {
+            infoDao.saveEpisodes(result.episodes ?: listOf())
+        }
     }
 
     private fun parseRssUrl() {
@@ -67,7 +72,6 @@ class PodcastViewModel(
                 channel.items?.firstOrNull()?.guid?.value
 
                 val podcastData = channel.toPodcastData(rssUrl)
-
                 podcastDao.savePodcast(podcastData)
                 podcastItem.postValue(podcastData)
                 currentPlayItem.postValue(podcastData.playlist.firstOrNull())
@@ -121,15 +125,43 @@ class PodcastViewModel(
         seekTo(seekPosition)
     }
 
-    fun getCurrentPopularReactions() {
+    fun getCurrentPopularReactions(duration:Long) {
         jsonResult.value?.let { result ->
-            val episode = result.episodes?.firstOrNull()
-            currentPopularReactions.value = episode?.statistics?.map { statistic ->
-                Reaction(
-                    result.reactions?.find { it.id == statistic.reactionId }?.emoji ?: "",
-                    statistic.time.extractTime()
-                )
-            } ?: listOf()
+            val episode = result.episodes?.find { it.guid == currentPlayItem.value?.guid }
+                ?: result.episodes?.firstOrNull()
+
+            val durationStep = duration / DURATION_STEP_KOEF
+            var maxFrom = 0L
+            var maxTo = durationStep
+            val tempList = mutableListOf<Statistic>()
+            val popularReactions = mutableListOf<ReactionPopular>()
+            episode?.statistics?.forEach {
+                if (it.time in maxFrom..maxTo) {
+                    tempList.add(it)
+                } else {
+                    maxFrom += durationStep
+                    maxTo += durationStep
+                    val group = tempList.groupBy { it.reactionId }
+                    var popularList = listOf<Statistic>()
+                    group.forEach {
+                        if (popularList.size < it.value.size) {
+                            popularList = it.value
+                        }
+                    }
+                    if (popularList.isNotEmpty()) {
+                        popularReactions.add(
+                            ReactionPopular(
+                                jsonResult.value?.reactions?.find { it.id == popularList.first().reactionId }?.emoji
+                                    ?: "",
+                                popularList.first().time,
+                                popularList.last().time
+                            )
+                        )
+                    }
+                    tempList.clear()
+                }
+            }
+            currentPopularReactions.postValue(popularReactions)
 
         }
     }
@@ -142,8 +174,9 @@ class PodcastViewModel(
                     withContext(Dispatchers.Default) {
                         val jsonInfo = jsonResult.value
                         jsonInfo?.let {
-                            val episode = it.episodes?.firstOrNull()
-                            //it.episodes?.find { it.guid == currentPlayItem.value?.guid }
+                            val episode =
+                                it.episodes?.find { it.guid == currentPlayItem.value?.guid }
+                                    ?: it.episodes?.firstOrNull()
                             val timedReaction = episode?.timedReactions?.find {
                                 val to = it.to.toLong() * MILLS
                                 val from = it.from.toLong() * MILLS

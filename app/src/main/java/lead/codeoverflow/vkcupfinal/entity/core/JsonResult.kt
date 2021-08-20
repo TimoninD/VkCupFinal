@@ -1,8 +1,10 @@
 package lead.codeoverflow.vkcupfinal.entity.core
 
+import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.room.*
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 import lead.codeoverflow.vkcupfinal.entity.Reaction
 import lead.codeoverflow.vkcupfinal.entity.Sex
 import lead.codeoverflow.vkcupfinal.model.local.TimedReactionConverter
@@ -17,7 +19,6 @@ data class ReactionData(
     val emoji: String,
     val description: String
 )
-
 
 @Entity
 data class Episode(
@@ -48,8 +49,7 @@ data class Statistic(
     @SerializedName("city_id") var cityId: Int = 0
 )
 
-
-class ReactionDataDiff: DiffUtil.ItemCallback<ReactionData>(){
+class ReactionDataDiff : DiffUtil.ItemCallback<ReactionData>() {
     override fun areItemsTheSame(oldItem: ReactionData, newItem: ReactionData): Boolean {
         return oldItem.id == newItem.id
     }

@@ -32,4 +32,6 @@
     <dimen name="size_12">12dp</dimen>
     <dimen name="margin_2">2dp</dimen>
     <dimen name="margin_21">21dp</dimen>
+    <dimen name="margin_14">14dp</dimen>
+    <dimen name="margin_36">36dp</dimen>
 </resources>

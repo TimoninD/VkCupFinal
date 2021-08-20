@@ -4,7 +4,7 @@ import okhttp3.internal.toLongOrDefault
 import java.util.concurrent.TimeUnit
 
 const val MILLS = 1000L
-private const val SECOND = 60L * MILLS
+private const val SECOND = MILLS
 private const val MINUTE = SECOND * 60L
 private const val HOUR = MINUTE * 60
 

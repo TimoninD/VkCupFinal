@@ -13,4 +13,7 @@ interface InfoDao {
 
     @Query("SELECT * FROM Episode WHERE link = :link")
     fun getAllEpisodesFromLink(link: String): List<Episode>
+
+    @Query("SELECT * FROM Episode WHERE guid = :guid LIMIT 1")
+    fun getEpisode(guid: String): Episode?
 }
